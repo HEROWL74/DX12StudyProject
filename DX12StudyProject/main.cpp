@@ -14,7 +14,7 @@ static constexpr int WINDOW_HIG = 600;
 //ウィンドウプロシージャのコールバック関数のプロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
+int WINAPI WinMain(_In_ HINSTANCE hInst, _In_opt_ HINSTANCE hPrevInst,_In_ LPSTR lpCmdLine,_In_ int nCmdShow)
 {
 	//ウィンドウの作成と表示
 	WNDCLASSEX wndcex;
