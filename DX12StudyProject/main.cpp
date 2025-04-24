@@ -6,7 +6,7 @@
 #include <string>
 
 using namespace std;
-static constexpr WCHAR tszAplName[] = L"step01";
+static constexpr TCHAR tszAplName[] = "step01";
 
 static constexpr int WINDOW_WID = 800;
 static constexpr int WINDOW_HIG = 600;
@@ -68,7 +68,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_PAINT:
 
 		hdc = BeginPaint(hWnd, &ps);
-		TextOutA(hdc, 5, 5, str.c_str(), (int)strlen(str.c_str()));
+		TextOut(hdc, 5, 5, str.c_str(), (int)strlen(str.c_str()));
 		EndPaint(hWnd, &ps);
 		break;
 	case WM_DESTROY:
