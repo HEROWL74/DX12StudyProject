@@ -26,6 +26,7 @@ public:
 	bool Create(HINSTANCE hInst, int nCmdShow);
 	bool SystemInit(void);
 	MSG Run(void);
+	void Render(void);
 	bool Release(void);
 
 private:
@@ -34,7 +35,7 @@ private:
 	ID3D12Device* pDevice;//デバイス
 	IDXGIFactory6* pFactory; //DXGIファクトリー
 	ID3D12CommandQueue* pCmdQueue; //コマンドキュー
-	IDXGISwapChain1* pSwapChain;//スワップチェイン
+	IDXGISwapChain4* pSwapChain;//スワップチェイン
 	ID3D12CommandAllocator* pCmdAllocator; //コマンドアロケータ
 	ID3D12GraphicsCommandList* pCmdList; //コマンドリスト
 	ID3D12DescriptorHeap* pRtvHeap;//ディスクリプタヒープ

@@ -210,12 +210,45 @@ MSG Application::Run(void)
 	MSG msg;
 	while (true) {
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+			if (msg.message == WM_QUIT)break;
+
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+		}
+		else {
+			Render();
 		}
 	}
 
 	return msg;
+}
+
+void Application::Render(void)
+{
+	//コマンドアロケータのリセット
+	pCmdAllocator->Reset();
+	pCmdList->Reset(pCmdAllocator, nullptr);
+
+	//レンダーターゲットの設定
+	auto bbIdx = pSwapChain->GetCurrentBackBufferIndex();
+	auto rtvH = pRtvHeap->GetCPUDescriptorHandleForHeapStart();
+	rtvH.ptr += bbIdx * pDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
+
+	pCmdList->OMSetRenderTargets(1, &rtvH, true, nullptr);
+
+	//画面クリア
+	float clearColor[] = { 1.0f, 1.0f, 0.0f, 1.0f };
+	pCmdList->ClearRenderTargetView(rtvH, clearColor, 0, nullptr);//黄色
+
+	//命令のクローズ
+	pCmdList->Close();
+
+	//コマンドリストの実行
+	ID3D12CommandList* cmdLists[] = { pCmdList };
+	pCmdQueue->ExecuteCommandLists(1, cmdLists);
+
+	//画面のフリップ
+	pSwapChain->Present(1, 0);
 }
 
 bool Application::Release(void)
