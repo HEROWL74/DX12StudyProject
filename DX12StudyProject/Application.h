@@ -18,7 +18,7 @@ public:
 	static constexpr int WINDOW_WID = 800;
 	static constexpr int WINDOW_HIG = 600;
 
-	static constexpr TCHAR tszAplName[] = "step01";
+	static constexpr TCHAR tszAplName[] =  "step01" ;
 
 	Application(void);
 	~Application(void);
