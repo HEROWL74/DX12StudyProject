@@ -1,12 +1,21 @@
-#include <Windows.h>
 #include "Application.h"
 
-int WINAPI WinMain(_In_ HINSTANCE hInst,_In_opt_ HINSTANCE hPrevInst,_In_ LPSTR lpCmdLine,_In_ int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	Application apl;
-	if (!apl.Create(hInst, nCmdShow))return -1;
-	if (!apl.SystemInit())return -1;
-	MSG msg = apl.Run();
-	return (int)msg.wParam;
-}
+    Application app;
 
+    // ウィンドウの作成
+    if (!app.Create(hInstance, nCmdShow)) {
+        return -1;
+    }
+
+    // D3D12システムの初期化
+    if (!app.SystemInit()) {
+        return -1;
+    }
+
+    // メインループ
+    MSG msg = app.Run();
+
+    return static_cast<int>(msg.wParam);
+}
