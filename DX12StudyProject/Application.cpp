@@ -252,11 +252,17 @@ void Application::OnInit(void)
 
 bool Application::CreateVertexBuffer(void)
 {
-	// 頂点データ（時計回りに修正）
+	// 頂点データ（四角形に修正）
 	Vertex vertices[] = {
-		{DirectX::XMFLOAT3(-0.8f,-0.8f, 0.0f), DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)}, // 青（左下）
-		{DirectX::XMFLOAT3(0.0f, 0.8f, 0.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)}, // 赤（上）
-		{DirectX::XMFLOAT3(0.8f,-0.8f, 0.0f), DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)}, // 緑（右下）
+		// 第1の三角形（左上、右上、左下）
+		{DirectX::XMFLOAT3(-0.5f, 0.5f, 0.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)}, // 左上（赤）
+		{DirectX::XMFLOAT3(0.5f, 0.5f, 0.0f), DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)}, // 右上（緑）
+		{DirectX::XMFLOAT3(-0.5f,-0.5f, 0.0f), DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)}, // 左下（青）
+
+		// 第2の三角形（右上、右下、左下）
+		{DirectX::XMFLOAT3(0.5f, 0.5f, 0.0f), DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)}, // 右上（緑）
+		{DirectX::XMFLOAT3(0.5f,-0.5f, 0.0f), DirectX::XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f)}, // 右下（黄）
+		{DirectX::XMFLOAT3(-0.5f,-0.5f, 0.0f), DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)}, // 左下（青）
 	};
 
 	OutputDebugString(L"Creating vertex buffer with vertices (clockwise order):\n");
@@ -636,7 +642,7 @@ void Application::Render(void)
 			OutputDebugString(L"Executing DrawInstanced command\n");
 			firstDraw = false;
 		}
-		pCmdList->DrawInstanced(3, 1, 0, 0);
+		pCmdList->DrawInstanced(6, 1, 0, 0);
 	}
 
 	// リソースバリア（レンダーターゲット → プレゼント）
